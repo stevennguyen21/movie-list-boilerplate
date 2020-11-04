@@ -27,6 +27,59 @@ import React from 'react';
 // }
 
 var MovieList = (props) => {
+    if (props.filter === 'watched') {
+        if (props.search) {
+            return (
+                <ul>
+                {props.searchedMovies.map((movie, i) => {
+                    if (movie.watched) {
+                        return (
+                            <Movie key={i} movie={movie} changeWatchState={props.changeWatchState}/>
+                        )
+                    }
+                })}
+                </ul>
+            );
+        } else {
+            return (
+                <ul>
+                {props.movies.map((movie, i) => {
+                    if (movie.watched) {
+                        return (
+                            <Movie key={i} movie={movie} changeWatchState={props.changeWatchState}/>
+                        )
+                    }
+                })}
+                </ul>
+            );
+        }
+    } else if (props.filter === 'not watched') {
+        if (props.search) {
+            return (
+                <ul>
+                {props.searchedMovies.map((movie, i) => {
+                    if (!movie.watched) {
+                        return (
+                            <Movie key={i} movie={movie} changeWatchState={props.changeWatchState}/>
+                        )
+                    }
+                })}
+                </ul>
+            );
+        } else {
+            return (
+                <ul>
+                {props.movies.map((movie, i) => {
+                    if (!movie.watched) {
+                        return (
+                            <Movie key={i} movie={movie} changeWatchState={props.changeWatchState}/>
+                        )
+                    }
+                })}
+                </ul>
+            );
+        }        
+    }
     if (props.search) {
         return (
             <ul>
