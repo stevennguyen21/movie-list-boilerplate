@@ -19,6 +19,7 @@ class App extends React.Component {
     this.isSearching = this.isSearching.bind(this);
     this.goHome = this.goHome.bind(this);
     this.setSelectedMovies = this.setSelectedMovies.bind(this);
+    this.changeWatchState = this.changeWatchState.bind(this);
   }
 
   setSelectedMovies(filter) {
@@ -64,6 +65,22 @@ class App extends React.Component {
     })
   }
 
+  changeWatchState(movie) {
+    console.log(movie);
+    var newMovies = this.state.movies;
+    for (var i = 0; i < this.state.movies.length; i++) {
+      if (this.state.movies[i].title === movie.title) {
+        var newMovie = this.state.movies[i]
+        newMovie.watched = !(this.state.movies[i].watched);
+        newMovies[i] = newMovie;
+      }
+    }
+    this.setState({
+      movies: newMovies
+    })
+    console.log(this.state.movies);
+  }
+
   render() {
     return (
       <div>
@@ -79,7 +96,8 @@ class App extends React.Component {
           <Watch setSelectedMovies={this.setSelectedMovies}/>
         </div>
         </nav>
-          <MovieList movies={this.state.movies} searchedMovies={this.state.searchedMovies} search={this.state.searching} filter={this.state.selected}/>
+          <MovieList movies={this.state.movies} searchedMovies={this.state.searchedMovies} search={this.state.searching} 
+          filter={this.state.selected} changeWatchState={this.changeWatchState}/>
       </div>
     );
   }
